@@ -3,79 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حرکت و تغییر شکل با Three.js</title>
+    <title>کتاب آنلاین</title>
     <style>
-        body { margin: 0; }
-        canvas { display: block; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-right: 1px solid #ccc;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        h2 {
+            color: #333;
+        }
+        h3 {
+            color: #555;
+        }
+        pre {
+            background-color: #282c34;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        nav a {
+            display: block;
+            padding: 8px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+        }
+        nav a:hover {
+            background-color: #ddd;
+        }
     </style>
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // صحنه، دوربین و رندرر را ایجاد کنید
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
 
-        // یک مکعب ایجاد کنید
-        const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+<div class="sidebar">
+    <h2>فهرست کتاب</h2>
+    <nav>
+        <a href="#" onclick="showPage(1)">صفحه 1</a>
+        <a href="#" onclick="showPage(2)">صفحه 2</a>
+        <a href="#" onclick="showPage(3)">صفحه 3</a>
+    </nav>
+</div>
 
-        // دوربین را تنظیم کنید
-        camera.position.z = 5;
-
-        // متغیر برای نگه‌داشتن حالت مکعب
-        let isSphere = false;
-
-        // تابع انیمیشن
-        function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // تابع برای حرکت مکعب با ماوس
-        function onMouseMove(event) {
-            // محاسبه موقعیت ماوس در فضای نرمال
-            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            // به روز رسانی موقعیت مکعب
-            cube.position.x = mouseX * 2; // مقیاس موقعیت
-            cube.position.y = mouseY * -2; // مقیاس موقعیت
-        }
-
-        // تابع برای تغییر شکل مکعب با کلیک
-        function onClick() {
-            if (isSphere) {
-                // بازگشت به مکعب
-                cube.geometry.dispose(); // آزادسازی هندسه قبلی
-                cube.geometry = new THREE.BoxGeometry();
-                cube.material.color.set(0x00ff00); // رنگ سبز
-            } else {
-                // تبدیل به کره
-                cube.geometry.dispose(); // آزادسازی هندسه قبلی
-                cube.geometry = new THREE.SphereGeometry(1, 32, 32);
-                cube.material.color.set(0xff0000); // رنگ قرمز
+<div class="content">
+    <div id="page1" class="page active">
+        <h2>صفحه 1: مقدمه</h2>
+        <h3>سر فصل 1: مفهوم کتاب آنلاین</h3>
+        <p>کتاب آنلاین به معنای دسترسی به محتوای کتاب از طریق اینترنت است.</p>
+        <h3>زیر بخش 1.1: مزایای کتاب آنلاین</h3>
+        <p>کتاب‌های آنلاین به راحتی قابل دسترسی هستند و می‌توانند به‌روز شوند.</p>
+        <pre>
+            // کد نمونه
+            function helloWorld() {
+                console.log("Hello, World!");
             }
-            isSphere = !isSphere; // تغییر حالت
-        }
+        </pre>
+    </div>
 
-        // اضافه کردن لیسنر برای حرکت ماوس و کلیک
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('click', onClick);
+    <div id="page2" class="page">
+        <h2>صفحه 2: استفاده از HTML و CSS</h2>
+        <h3>سر فصل 2: ساختار HTML</h3>
+        <p>HTML زبان نشانه‌گذاری است که برای ساخت صفحات وب استفاده می‌شود.</p>
+        <h3>زیر بخش 2.1: نمونه‌ای از کد HTML</h3>
+        <pre>
+            &lt;!DOCTYPE html&gt;
+            &lt;html&gt;
+            &lt;head&gt;
+                &lt;title&gt;صفحه نمونه&lt;/title&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                &lt;h1&gt;سلام دنیا!&lt;/h1&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+        </pre>
+    </div>
 
-        // تغییر اندازه رندرر هنگام تغییر اندازه پنجره
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+    <div id="page3" class="page">
+        <h2>صفحه 3: نتیجه‌گیری</h2>
+        <h3>سر فصل 3: آینده کتاب‌های آنلاین</h3>
+        <p>کتاب‌های آنلاین به سرعت در حال رشد و توسعه هستند و آینده روشنی دارند.</p>
+        <h3>زیر بخش 3.1: نکات پایانی</h3>
+        <p>برای دسترسی به منابع بیشتر، می‌توانید به وب‌سایت‌های معتبر مراجعه کنید.</p>
+        <pre>
+            // کد پایانی
+            function endNote() {
+                console.log("این یک نکته پایانی است.");
+            }
+        </pre>
+    </div>
+</div>
+
+<script>
+    function showPage(pageNumber) {
+        const pages = document.querySelectorAll('.page');
+        pages.forEach((page, index) => {
+            page.classList.remove('active');
+            if (index + 1 === pageNumber) {
+                page.classList.add('active');
+            }
         });
-    </script>
+    }
+</script>
+
 </body>
 </html>
