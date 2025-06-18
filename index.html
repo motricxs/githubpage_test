@@ -4,33 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحه GitHub من</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
+    <header class="bg-primary text-white text-center py-5">
         <h1>خوش آمدید به صفحه من!</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">درباره من</a></li>
-                <li><a href="#projects">پروژه‌ها</a></li>
-                <li><a href="#contact">تماس</a></li>
-            </ul>
+        <nav class="nav justify-content-center">
+            <a class="nav-link text-white" href="#about">درباره من</a>
+            <a class="nav-link text-white" href="#projects">پروژه‌ها</a>
+            <a class="nav-link text-white" href="#contact">تماس</a>
         </nav>
     </header>
-    <section id="about">
-        <h2>درباره من</h2>
-        <p>من یک توسعه‌دهنده وب هستم.</p>
-    </section>
-    <section id="projects">
-        <h2>پروژه‌ها</h2>
-        <p>اینجا پروژه‌های من را می‌توانید ببینید.</p>
-    </section>
-    <section id="contact">
-        <h2>تماس با من</h2>
-        <p>ایمیل: example@example.com</p>
-    </section>
-    <footer>
+    <div class="container my-5">
+        <section id="about" class="mb-5">
+            <h2>درباره من</h2>
+            <p>من یک توسعه‌دهنده وب هستم و به طراحی و توسعه اپلیکیشن‌های وب علاقه دارم.</p>
+        </section>
+        <section id="projects" class="mb-5">
+            <h2>پروژه‌ها</h2>
+            <p>اینجا پروژه‌های من را می‌توانید ببینید.</p>
+            <ul>
+                <li>پروژه ۱</li>
+                <li>پروژه ۲</li>
+                <li>پروژه ۳</li>
+            </ul>
+        </section>
+        <section id="contact">
+            <h2>تماس با من</h2>
+            <p>ایمیل: example@example.com</p>
+        </section>
+    </div>
+    <footer class="bg-dark text-white text-center py-3">
         <p>© 2025. تمام حقوق محفوظ است.</p>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
