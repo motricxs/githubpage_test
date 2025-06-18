@@ -54,24 +54,35 @@
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
 
+        // اندازه‌گیری رندر کننده
         renderer.setSize(window.innerWidth, 400);
         document.getElementById('animation-container').appendChild(renderer.domElement);
 
+        // ایجاد یک مکعب
         const geometry = new THREE.BoxGeometry();
         const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
+        // موقعیت دوربین
         camera.position.z = 5;
 
+        // تابع انیمیشن
         function animate() {
             requestAnimationFrame(animate);
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-            renderer.render(scene, camera);
+            cube.rotation.x += 0.01; // چرخش در محور X
+            cube.rotation.y += 0.01; // چرخش در محور Y
+            renderer.render(scene, camera); // رندر صحنه
         }
 
         animate();
+
+        // تنظیم اندازه رندر کننده در تغییر اندازه پنجره
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, 400);
+        });
     </script>
 </body>
 </html>
