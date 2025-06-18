@@ -1,49 +1,79 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>انیمیشن مربع با Three.js</title>
-    <style>
-        body { margin: 0; }
-        canvas { display: block; }
-    </style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>حرکت و تغییر شکل با Three.js</title>
+ <style>
+ body { margin: 0; }
+ canvas { display: block; }
+ </style>
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // صحنه، دوربین و رندرر را ایجاد کنید
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+ <script>
+ // صحنه، دوربین و رندرر را ایجاد کنید
+ const scene = new THREE.Scene();
+ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+ const renderer = new THREE.WebGLRenderer({ antialias: true });
+ renderer.setSize(window.innerWidth, window.innerHeight);
+ document.body.appendChild(renderer.domElement);
 
-        // یک مکعب ایجاد کنید
-        const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+ // یک مکعب ایجاد کنید
+ const geometry = new THREE.BoxGeometry();
+ const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+ const cube = new THREE.Mesh(geometry, material);
+ scene.add(cube);
 
-        // دوربین را تنظیم کنید
-        camera.position.z = 5;
+ // دوربین را تنظیم کنید
+ camera.position.z = 5;
 
-        // تابع انیمیشن
-        function animate() {
-            requestAnimationFrame(animate);
-            cube.rotation.x += 0.01; // چرخش حول محور x
-            cube.rotation.y += 0.01; // چرخش حول محور y
-            renderer.render(scene, camera);
-        }
+ // متغیر برای نگه‌داشتن حالت مکعب
+ let isSphere = false;
 
-        animate();
+ // تابع انیمیشن
+ function animate() {
+     requestAnimationFrame(animate);
+     renderer.render(scene, camera);
+ }
 
-        // تغییر اندازه رندرر هنگام تغییر اندازه پنجره
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+ animate();
+
+ // تابع برای حرکت مکعب با ماوس
+ function onMouseMove(event) {
+     // محاسبه موقعیت ماوس در فضای نرمال
+     const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+     const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+
+     // به روز رسانی موقعیت مکعب
+     cube.position.x = mouseX * 5; // مقیاس موقعیت
+     cube.position.y = mouseY * 5; // مقیاس موقعیت
+ }
+
+ // تابع برای تغییر شکل مکعب با کلیک
+ function onClick() {
+     if (isSphere) {
+         // بازگشت به مکعب
+         cube.geometry = new THREE.BoxGeometry();
+         cube.material.color.set(0x00ff00); // رنگ سبز
+     } else {
+         // تبدیل به کره
+         cube.geometry = new THREE.SphereGeometry(1, 32, 32);
+         cube.material.color.set(0xff0000); // رنگ قرمز
+     }
+     isSphere = !isSphere; // تغییر حالت
+ }
+
+ // اضافه کردن لیسنر برای حرکت ماوس و کلیک
+ window.addEventListener('mousemove', onMouseMove);
+ window.addEventListener('click', onClick);
+
+ // تغییر اندازه رندرر هنگام تغییر اندازه پنجره
+ window.addEventListener('resize', () => {
+     camera.aspect = window.innerWidth / window.innerHeight;
+     camera.updateProjectionMatrix();
+     renderer.setSize(window.innerWidth, window.innerHeight);
+ });
+ </script>
 </body>
 </html>
